@@ -6,47 +6,47 @@ export default function Admin() {
   const [loans, setLoans] = useState([]);
 
   const handleLogin = async () => {
-  try {
-    const res = await fetch("https://sba-backend-qyuo.onrender.com/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(login)
-    });
+    try {
+      const res = await fetch("https://sba-backend-qyuo.onrender.com/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(login),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-      setToken(data.token);
-
-      // 🔥 ADD THIS LINE
-      window.location.reload();
-    } else {
-      alert("Login failed");
-    }
-  } catch (error) {
-    console.error(error);
-    alert("Login error");
-  }
-};
-
- useEffect(() => {
-  if (!token) return;
-
-  fetch("https://sba-backend-qyuo.onrender.com/api/loans", {
-    headers: {
-      Authorization: token
-    }
-  })
-    .then(res => res.json())
-    .then(data => {
-      if (Array.isArray(data)) {
-        setLoans(data);
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        setToken(data.token);
+      } else {
+        alert("Login failed");
       }
-    });
-}, [token]);
+    } catch (error) {
+      console.error(error);
+      alert("Login error");
+    }
+  };
+
+  useEffect(() => {
+    if (!token) return;
+
+    fetch("https://sba-backend-qyuo.onrender.com/api/loans", {
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setLoans(data);
+        } else {
+          setLoans([]);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [token]);
 
   if (!token) {
     return (

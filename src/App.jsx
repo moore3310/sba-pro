@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { useState } from "react";
-import Admin from "./Admin";
+import Admin from "./Admin.jsx";
 
 function Home() {
   const [form, setForm] = useState({
@@ -25,9 +25,9 @@ function Home() {
       const res = await fetch("https://sba-backend-qyuo.onrender.com/api/loan", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       });
 
       const data = await res.json();
@@ -36,6 +36,12 @@ function Home() {
       console.error(error);
       alert("Error submitting application");
     }
+  };
+
+  const s = {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "10px",
   };
 
   return (
@@ -60,12 +66,6 @@ function Home() {
     </div>
   );
 }
-
-const s = {
-  width: "100%",
-  padding: "10px",
-  marginBottom: "10px",
-};
 
 export default function App() {
   return (
