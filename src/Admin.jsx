@@ -7,7 +7,7 @@ export default function Admin() {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/login", {
+      const res = await fetch("https://sba-backend-qyuo.onrender.com/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export default function Admin() {
   useEffect(() => {
     if (!token) return;
 
-    fetch("http://localhost:5000/api/loans", {
+    fetch("https://sba-backend-qyuo.onrender.com/api/loans", {
       headers: {
         Authorization: token,
       },
@@ -52,17 +52,20 @@ export default function Admin() {
     return (
       <div style={{ padding: "20px", maxWidth: "400px", margin: "0 auto" }}>
         <h2>Admin Login</h2>
+
         <input
           placeholder="Username"
           onChange={(e) => setLogin({ ...login, username: e.target.value })}
           style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
         />
+
         <input
           type="password"
           placeholder="Password"
           onChange={(e) => setLogin({ ...login, password: e.target.value })}
           style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
         />
+
         <button onClick={handleLogin} style={{ padding: "10px 16px" }}>
           Login
         </button>

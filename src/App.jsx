@@ -20,12 +20,12 @@ export default function App() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/loan", {
+      const res = await fetch("https://sba-backend-qyuo.onrender.com/api/loan", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       });
 
       const data = await res.json();
@@ -39,7 +39,7 @@ export default function App() {
   const s = {
     width: "100%",
     padding: "10px",
-    marginBottom: "10px"
+    marginBottom: "10px",
   };
 
   return (

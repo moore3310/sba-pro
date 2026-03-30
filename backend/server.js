@@ -9,7 +9,14 @@ const ADMIN_PASS = "admin123";
 const SECRET = "mysecretkey";
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://sba-pro-1kh6.vercel.app"
+  ],
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(express.json());
 
 mongoose.connect("mongodb://landiecope_db_user:zhM7rQGz3WrDYIgD@ac-8fylpsm-shard-00-00.yzdx5gg.mongodb.net:27017,ac-8fylpsm-shard-00-01.yzdx5gg.mongodb.net:27017,ac-8fylpsm-shard-00-02.yzdx5gg.mongodb.net:27017/loansdb?ssl=true&replicaSet=atlas-9b3ffo-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0")
