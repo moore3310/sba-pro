@@ -1,6 +1,8 @@
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { useState } from "react";
+import Admin from "./Admin";
 
-export default function App() {
+function Home() {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -18,49 +20,33 @@ export default function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const res = await fetch("https://sba-backend-qyuo.onrender.com/api/loan", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      const data = await res.json();
-      alert(data.message || "Application received");
-    } catch (error) {
-      console.error(error);
-      alert("Error submitting application");
-    }
-  };
-
-  const s = {
-    width: "100%",
-    padding: "10px",
-    marginBottom: "10px",
+    alert("Submitted (you can connect backend later)");
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "700px", margin: "0 auto" }}>
+    <div style={{ padding: 20 }}>
       <h2>Loan Application</h2>
-      <p><a href="/admin">Go to Admin</a></p>
+
+      {/* LINK TO ADMIN */}
+      <Link to="/admin">Go to Admin</Link>
 
       <form onSubmit={handleSubmit}>
-        <input name="firstName" placeholder="First Name" onChange={handleChange} style={s} />
-        <input name="lastName" placeholder="Last Name" onChange={handleChange} style={s} />
-        <input name="email" placeholder="Email" onChange={handleChange} style={s} />
-        <input name="phone" placeholder="Phone" onChange={handleChange} style={s} />
-        <input name="dateOfBirth" placeholder="Date of Birth" onChange={handleChange} style={s} />
-        <input name="ssn" placeholder="SSN" onChange={handleChange} style={s} />
-        <input name="businessName" placeholder="Business Name" onChange={handleChange} style={s} />
-        <input name="amount" placeholder="Loan Amount" onChange={handleChange} style={s} />
-
-        <button type="submit" style={{ padding: "12px 20px" }}>
-          Submit Application
-        </button>
+        <input name="firstName" placeholder="First Name" onChange={handleChange} /><br/>
+        <input name="lastName" placeholder="Last Name" onChange={handleChange} /><br/>
+        <input name="email" placeholder="Email" onChange={handleChange} /><br/>
+        <button type="submit">Submit</button>
       </form>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
