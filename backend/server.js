@@ -14,7 +14,10 @@ const ADMIN_PASS = "admin123";
 const SECRET = "mysecretkey";
 
 mongoose
-  .connect(process.env.MONGO_URI || "mongodb://landiecope_db_user:zhM7rQGz3WrDYIgD@ac-8fylpsm-shard-00-00.yzdx5gg.mongodb.net:27017,ac-8fylpsm-shard-00-01.yzdx5gg.mongodb.net:27017,ac-8fylpsm-shard-00-02.yzdx5gg.mongodb.net:27017/loansdb?ssl=true&replicaSet=atlas-9b3ffo-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0")
+  .connect(
+    process.env.MONGO_URI ||
+      "mongodb://landiecope_db_user:zhM7rQGz3WrDYIgD@ac-8fylpsm-shard-00-00.yzdx5gg.mongodb.net:27017,ac-8fylpsm-shard-00-01.yzdx5gg.mongodb.net:27017,ac-8fylpsm-shard-00-02.yzdx5gg.mongodb.net:27017/loansdb?ssl=true&replicaSet=atlas-9b3ffo-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0"
+  )
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log("MongoDB error:", err.message));
 
@@ -36,7 +39,7 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "landiecope@gmail.com",
-    pass: "hfapwruyswbbvuzo",
+    pass: process.env.GMAIL_APP_PASSWORD || "hfapwruyswbbvuzo",
   },
 });
 
